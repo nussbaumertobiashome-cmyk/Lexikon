@@ -1,5 +1,5 @@
 /* Lexikon Service Worker */
-const CACHE = "lexikon-v2";
+const CACHE = "lexikon-v4";
 const SHELL = [
   "./",
   "./index.html",
