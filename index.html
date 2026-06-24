@@ -445,6 +445,64 @@ body{ padding:0; background:var(--paper); }
 .view .toolbar{ margin:0 0 16px; }
 .settings{ margin-top:0; }
 @media (min-width:560px){ .views{ padding-left:20px; padding-right:20px; } }
+
+/* ===== Lernstand-Pill in der Liste ===== */
+.lvl{ margin-left:auto; flex:none; font-family:"Inter",sans-serif; font-size:10px; font-weight:600; padding:2px 9px; border-radius:999px; letter-spacing:.2px; white-space:nowrap; }
+.lvl--new{ background:var(--line); color:var(--ink-soft); }
+.lvl--learning{ background:var(--de-wash); color:var(--de); }
+.lvl--good{ background:#E3F0EC; color:var(--en); }
+.lvl--mastered{ background:var(--en); color:#fff; }
+
+/* ===== Lernstand-Filter (Chips) ===== */
+.lvlfilter{ display:flex; gap:7px; overflow-x:auto; -webkit-overflow-scrolling:touch; margin:0 0 14px; padding-bottom:3px; scrollbar-width:none; }
+.lvlfilter::-webkit-scrollbar{ display:none; }
+.lvlchip{ flex:none; display:inline-flex; align-items:center; gap:7px; border:1.5px solid var(--line-strong); background:var(--surface); color:var(--ink-soft); border-radius:999px; padding:7px 14px; font-family:"Inter",sans-serif; font-size:13px; font-weight:600; cursor:pointer; transition:background .15s,border-color .15s,color .15s; white-space:nowrap; min-height:40px; }
+.lvlchip:hover{ border-color:var(--ink); }
+.lvlchip.active{ background:var(--ink); border-color:var(--ink); color:var(--paper); }
+.lvlchip__n{ font-family:"JetBrains Mono",monospace; font-size:11px; font-weight:700; opacity:.65; }
+.lvlchip.active .lvlchip__n{ opacity:.9; }
+.lvlchip[data-empty="1"]{ opacity:.4; }
+
+/* ===== 5 Tabs: etwas kompakter ===== */
+.tab{ font-size:10px; padding-left:2px; padding-right:2px; }
+.tab svg{ width:22px; height:22px; }
+
+/* ===== Fortschritt / Statistik ===== */
+#statsHost{ max-width:560px; margin:0 auto; }
+.card{ background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px; margin-bottom:14px; }
+.card__t{ font-family:"Bricolage Grotesque",sans-serif; font-weight:700; font-size:15px; display:flex; align-items:center; gap:9px; }
+.card__t::before{ content:""; width:7px; height:7px; border-radius:50%; background:var(--en); }
+.card__s{ margin:8px 0 16px; font-size:12.5px; color:var(--muted); line-height:1.45; }
+.stat-hero{ display:flex; flex-direction:column; align-items:center; gap:6px; padding-top:22px; }
+.donut{ width:170px; height:170px; }
+.donut__num{ font-family:"JetBrains Mono",monospace; font-size:30px; font-weight:700; fill:var(--ink); }
+.donut__lbl{ font-family:"Inter",sans-serif; font-size:9px; font-weight:600; letter-spacing:1.4px; fill:var(--muted); }
+.legend{ width:100%; display:flex; flex-direction:column; gap:0; margin-top:12px; }
+.lg{ display:flex; align-items:center; gap:11px; width:100%; background:transparent; border:0; border-top:1px solid var(--line); padding:12px 2px; cursor:pointer; text-align:left; }
+.lg:first-child{ border-top:0; }
+.lg:active{ background:var(--paper); }
+.lg__dot{ width:12px; height:12px; border-radius:4px; flex:none; }
+.lg__lb{ flex:1; font-family:"Inter",sans-serif; font-size:14.5px; font-weight:500; color:var(--ink); }
+.lg__n{ font-family:"JetBrains Mono",monospace; font-size:15px; font-weight:700; color:var(--ink); }
+.lg__cv{ width:17px; height:17px; color:var(--line-strong); flex:none; }
+.boxrow{ display:flex; align-items:center; gap:11px; margin-top:11px; }
+.boxrow__h{ flex:none; width:80px; }
+.boxrow__h b{ display:block; font-family:"Inter",sans-serif; font-size:13px; font-weight:600; line-height:1.2; }
+.boxrow__h span{ font-family:"JetBrains Mono",monospace; font-size:10px; color:var(--muted); }
+.boxrow__bar{ flex:1; height:9px; background:var(--paper); border-radius:6px; overflow:hidden; }
+.boxrow__fill{ height:100%; border-radius:6px; transition:width .45s ease; }
+.boxrow__fill.b1, .boxrow__fill.b2{ background:var(--de); }
+.boxrow__fill.b3, .boxrow__fill.b4{ background:var(--en-bright); }
+.boxrow__fill.b5{ background:var(--en); }
+.boxrow__n{ flex:none; width:26px; text-align:right; font-family:"JetBrains Mono",monospace; font-size:13px; font-weight:700; color:var(--ink-soft); }
+.metrics{ display:flex; gap:10px; margin-bottom:14px; }
+.metric{ flex:1; background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-sm); box-shadow:var(--shadow); padding:15px 8px; text-align:center; }
+.metric b{ display:block; font-family:"JetBrains Mono",monospace; font-size:23px; font-weight:700; color:var(--en); line-height:1; }
+.metric span{ font-size:10px; color:var(--muted); margin-top:6px; display:block; letter-spacing:.2px; }
+.stats-empty{ text-align:center; padding:46px 20px; color:var(--muted); }
+.stats-empty svg{ width:46px; height:46px; opacity:.5; margin-bottom:14px; }
+.stats-empty h3{ font-family:"Bricolage Grotesque",sans-serif; font-size:18px; color:var(--ink-soft); margin:0 0 6px; }
+.stats-empty p{ font-size:13.5px; margin:0; line-height:1.5; }
 </style>
 </head>
 <body>
@@ -519,12 +577,25 @@ body{ padding:0; background:var(--paper); }
           </select>
         </div>
       </div>
+      <div class="lvlfilter" id="lvlFilter">
+        <button class="lvlchip active" data-filter="all">Alle <span class="lvlchip__n">0</span></button>
+        <button class="lvlchip" data-filter="new">Neu <span class="lvlchip__n">0</span></button>
+        <button class="lvlchip" data-filter="learning">Am Lernen <span class="lvlchip__n">0</span></button>
+        <button class="lvlchip" data-filter="good">Sitzt gut <span class="lvlchip__n">0</span></button>
+        <button class="lvlchip" data-filter="mastered">Gemeistert <span class="lvlchip__n">0</span></button>
+      </div>
       <div class="empty" id="empty">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
         <h3>Noch keine Vokabeln</h3>
         <p>Wechsle zu „Hinzufügen“ oder importiere eine Liste über „Mehr“.</p>
       </div>
       <div class="list" id="list"></div>
+    </section>
+
+    <!-- ===== FORTSCHRITT ===== -->
+    <section class="view" data-view="stats" hidden>
+      <div class="view__intro"><h2>Fortschritt</h2><p>Dein Lernstand auf einen Blick</p></div>
+      <div id="statsHost"></div>
     </section>
 
     <!-- ===== MEHR ===== -->
@@ -599,6 +670,10 @@ body{ padding:0; background:var(--paper); }
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>
       <span>Sammlung</span>
     </button>
+    <button class="tab" data-view="stats">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>
+      <span>Fortschritt</span>
+    </button>
     <button class="tab" data-view="more">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
       <span>Mehr</span>
@@ -657,6 +732,7 @@ let openId=null;
 let pendingImport=[];
 let deferredPrompt=null;
 let activeView="study";
+let listFilter="all";
 
 /* ===== Helfer ===== */
 const $=id=>document.getElementById(id);
@@ -793,6 +869,7 @@ $("sort").addEventListener("change",render);
 function visibleVocab(){
   const q=norm($("search").value);
   let arr=vocab.filter(v=>!q||norm(v.en).includes(q)||norm(v.de).includes(q)||(v.meanings||[]).some(m=>norm(m).includes(q)));
+  if(listFilter!=="all") arr=arr.filter(v=>learnStatus(v).key===listFilter);
   arr=arr.slice();
   const s=$("sort").value;
   if(s==="new") arr.sort((a,b)=>b.added-a.added);
@@ -806,6 +883,8 @@ function visibleVocab(){
 function render(){
   $("count").textContent=vocab.length;
   updateDueBadge();
+  updateFilterChips();
+  if(activeView==="stats") renderStats();
   const list=$("list"), empty=$("empty");
   if(vocab.length===0){empty.classList.remove("hidden");list.innerHTML="";return;}
   empty.classList.add("hidden");
@@ -817,11 +896,12 @@ function render(){
 function rowView(v){
   const open=v.id===openId;
   const dot=hasDetails(v)?'<span class="has-dot" title="Details vorhanden"></span>':'';
+  const st=learnStatus(v);
   return ''+
    '<div class="entry'+(open?' open':'')+'" data-id="'+v.id+'">'+
      '<div class="entry__main">'+
        '<div class="entry__terms act-toggle">'+
-         '<div class="term"><span class="tag en">EN</span><span class="term__word en" title="'+esc(v.en)+'">'+esc(v.en)+'</span>'+dot+'</div>'+
+         '<div class="term"><span class="tag en">EN</span><span class="term__word en" title="'+esc(v.en)+'">'+esc(v.en)+'</span>'+dot+'<span class="lvl lvl--'+st.key+'">'+st.label+'</span></div>'+
          '<div class="term"><span class="tag de">DE</span><span class="term__word de" title="'+esc(v.de)+'">'+esc(v.de||"—")+'</span>'+
            '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:auto"><path d="m6 9 6 6 6-6"/></svg>'+
          '</div>'+
@@ -1085,6 +1165,87 @@ let study=null;
 let setupChoice={mode:"flash",dir:"en2de",pool:"due"};
 
 function learnDefaults(){return {box:1,due:0,reviews:0,correct:0,streak:0,last:0};}
+
+/* ===== Lernstand-Auswertung ===== */
+function learnStatus(v){
+  const L=v.learn||learnDefaults();
+  if(!L.reviews) return {key:"new",label:"Neu"};
+  if(L.box>=5) return {key:"mastered",label:"Gemeistert"};
+  if(L.box>=3) return {key:"good",label:"Sitzt gut"};
+  return {key:"learning",label:"Am Lernen"};
+}
+function statusCounts(){
+  const c={all:vocab.length,new:0,learning:0,good:0,mastered:0};
+  vocab.forEach(v=>{ c[learnStatus(v).key]++; });
+  return c;
+}
+function updateFilterChips(){
+  const c=statusCounts();
+  document.querySelectorAll(".lvlchip").forEach(ch=>{
+    const f=ch.dataset.filter, n=c[f]||0;
+    const ns=ch.querySelector(".lvlchip__n"); if(ns) ns.textContent=n;
+    ch.classList.toggle("active", f===listFilter);
+    ch.dataset.empty=(f!=="all" && n===0)?"1":"0";
+  });
+}
+function statDonut(segs,total){
+  const r=54, c=2*Math.PI*r, cx=64, cy=64, sw=20; let off=0, parts="";
+  segs.forEach(s=>{ if(s.val>0){ const len=s.val/total*c;
+    parts+='<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="'+s.color+'" stroke-width="'+sw+'" stroke-dasharray="'+len.toFixed(2)+' '+(c-len).toFixed(2)+'" stroke-dashoffset="'+(-off).toFixed(2)+'" transform="rotate(-90 '+cx+' '+cy+')"/>';
+    off+=len; } });
+  return '<svg viewBox="0 0 128 128" class="donut" role="img" aria-label="Lernstand-Verteilung">'+
+    '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'" fill="none" stroke="#E2E6E1" stroke-width="'+sw+'"/>'+parts+
+    '<text x="64" y="60" text-anchor="middle" class="donut__num">'+total+'</text>'+
+    '<text x="64" y="79" text-anchor="middle" class="donut__lbl">Vokabeln</text></svg>';
+}
+function renderStats(){
+  const host=$("statsHost"); if(!host) return;
+  const total=vocab.length;
+  if(total===0){
+    host.innerHTML='<div class="stats-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg><h3>Noch keine Daten</h3><p>Füge Vokabeln hinzu und übe sie – dann erscheint hier dein Fortschritt.</p></div>';
+    return;
+  }
+  const c=statusCounts();
+  const segs=[
+    {key:"new",      label:"Neu",        color:"#C2CBC4", val:c.new},
+    {key:"learning", label:"Am Lernen",  color:"#BF7D2C", val:c.learning},
+    {key:"good",     label:"Sitzt gut",  color:"#3E9182", val:c.good},
+    {key:"mastered", label:"Gemeistert", color:"#2C6E63", val:c.mastered}
+  ];
+  const boxes=[0,0,0,0,0];
+  vocab.forEach(v=>{ const b=Math.min(Math.max((v.learn?v.learn.box:1)||1,1),5); boxes[b-1]++; });
+  const maxB=Math.max(1,...boxes);
+  let rev=0, cor=0;
+  vocab.forEach(v=>{ const L=v.learn||learnDefaults(); rev+=L.reviews; cor+=L.correct; });
+  const rate=rev>0?Math.round(cor/rev*100):0;
+  const due=dueList().length;
+
+  const legend=segs.map(s=>'<button class="lg" data-jump="'+s.key+'"><span class="lg__dot" style="background:'+s.color+'"></span><span class="lg__lb">'+s.label+'</span><span class="lg__n">'+s.val+'</span><svg class="lg__cv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>').join("");
+
+  const boxLabels=["heute","2 Tage","4 Tage","8 Tage","16 Tage"];
+  let boxRows="";
+  for(let i=0;i<5;i++){
+    const pct=boxes[i]>0?Math.max(Math.round(boxes[i]/maxB*100),5):0;
+    boxRows+='<div class="boxrow"><div class="boxrow__h"><b>Box '+(i+1)+'</b><span>'+boxLabels[i]+'</span></div><div class="boxrow__bar"><div class="boxrow__fill b'+(i+1)+'" style="width:'+pct+'%"></div></div><div class="boxrow__n">'+boxes[i]+'</div></div>';
+  }
+
+  const cta=due>0
+    ? '<button class="btn btn--primary" id="statsCta" style="margin-bottom:14px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5"/><path d="m3 17 9 5 9-5"/></svg>'+due+' fällig – jetzt üben</button>'
+    : '';
+
+  host.innerHTML=
+    '<div class="card stat-hero">'+statDonut(segs,total)+'<div class="legend">'+legend+'</div></div>'+
+    cta+
+    '<div class="metrics">'+
+      '<div class="metric"><b>'+due+'</b><span>fällig heute</span></div>'+
+      '<div class="metric"><b>'+rate+'%</b><span>Erfolgsquote</span></div>'+
+      '<div class="metric"><b>'+rev+'</b><span>Wiederholungen</span></div>'+
+    '</div>'+
+    '<div class="card"><div class="card__t">Leitner-Boxen</div><p class="card__s">Je weiter rechts, desto besser sitzt das Wort – und desto seltener kommt es dran. Ein Fehler wirft es zurück auf Box 1.</p>'+boxRows+'</div>';
+
+  host.querySelectorAll(".lg").forEach(b=>b.onclick=()=>{ listFilter=b.dataset.jump; showView("list"); render(); });
+  const cb=$("statsCta"); if(cb) cb.onclick=()=>showView("study");
+}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function learnable(){return vocab.filter(v=>v.en.trim()&&v.de.trim());}
 function isDue(v){return (v.learn?v.learn.due:0)<=Date.now();}
@@ -1170,10 +1331,12 @@ function showView(name){
   document.querySelectorAll(".view").forEach(v=>{ v.hidden=(v.dataset.view!==name); });
   document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.view===name));
   if(name==="study" && !study) renderSetup();
+  if(name==="stats") renderStats();
   if(name==="add") setTimeout(()=>{ const i=$("srcInput"); if(i) i.focus(); }, 60);
   window.scrollTo(0,0);
 }
 document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>showView(t.dataset.view)));
+document.querySelectorAll(".lvlchip").forEach(ch=>ch.addEventListener("click",()=>{ listFilter=ch.dataset.filter; render(); }));
 
 /* ===== Setup-Bildschirm ===== */
 function renderSetup(){
